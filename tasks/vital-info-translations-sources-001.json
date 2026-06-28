@@ -1,0 +1,33 @@
+{
+  "id": "vital-info-translations-sources-001",
+  "title": "Build source allow-list with per-source license terms",
+  "project": "vital-info-translations",
+  "type": "data",
+  "lane": "donated",
+  "priority": "high",
+  "domain": ["translation", "public-health", "public-safety", "licensing"],
+  "riskTier": "low",
+  "urgent": false,
+  "deliverable": "dataset",
+  "tokenEstimate": "small",
+  "status": "open",
+  "context": "vital-info-translations translates vetted public-health/safety guidance into low-resource languages. Source material is NOT uniformly CC-BY: WHO content carries WHO terms (often CC BY-NC-SA 3.0 IGO) plus a mandatory translation disclaimer, MoH terms vary, CDC is often US public domain but may embed third-party material. Nothing may be translated until its source is allow-listed with verified terms.",
+  "objective": "Create a structured, per-source allow-list recording each approved source's license terms, derivatives permission, required attribution, and any mandatory disclaimer, so the per-deliverable license gate can be checked consistently.",
+  "acceptanceCriteria": [
+    "sources/allow-list.yaml lists >= 3 sources including at least one WHO and one MoH or CDC source",
+    "Each entry records: name, canonical URL, version/date, retrieval date, license name + URL, snapshot of license text, derivatives-allowed flag, required attribution string, required disclaimer text",
+    "WHO entries explicitly capture the mandatory translation disclaimer and note the terms are NOT CC-BY",
+    "Each entry has verifiedBy and verifiedDate; any source with unclear or incompatible terms is marked excluded with a reason",
+    "File validates against the project metadata schema and passes CI structural checks"
+  ],
+  "resources": [
+    "C:/code/elyos/governance/proposals/vital-info-translations.md",
+    "C:/code/elyos/planning/projects/vital-info-translations/PLAN.md",
+    "WHO permissions/licensing and translation policy pages",
+    "CDC content-use / public-domain notice"
+  ],
+  "output": "sources/allow-list.yaml plus a short README documenting the allow-list schema and verification process",
+  "requestor": "TO BE SECURED",
+  "verifiedNeed": false,
+  "outputLicense": "MIT"
+}
