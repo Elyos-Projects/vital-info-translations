@@ -1,0 +1,368 @@
+# vital-info-translations — source allow-list
+# ---------------------------------------------------------------------------
+# Per-source license terms for the public-health/safety translation pipeline.
+# Schema: ./allow-list.schema.json (JSON Schema draft-07; validated in CI).
+# Docs:   ./README.md
+#
+# HARD GATE: a source may be translated ONLY when status == "included" AND
+# reviewStatus == "confirmed". Every entry below is currently "provisional":
+# it was drafted by an automated desk review of publicly-documented license
+# terms. NO entry has yet been confirmed by a qualified human license reviewer,
+# and NO license snapshot has been captured from a live fetch (sha256/archiveUrl
+# are null). Per PLAN.md, that human confirmation + snapshot capture is a
+# BLOCKING PREREQUISITE before any document is translated. Do not translate
+# from this list until the entry you need is promoted to reviewStatus:
+# "confirmed".
+# ---------------------------------------------------------------------------
+
+schemaVersion: "1.0.0"
+generatedDate: "2026-06-28"
+fileLicense: "MIT"  # license of THIS metadata file (project tooling/data). Does NOT relicense any source content.
+
+verificationPolicy:
+  humanConfirmationRequired: true
+  blockingPrerequisite: >-
+    Before any source is used for translation, a qualified human license/compliance
+    reviewer must (a) live-fetch the canonical URL and license URL, (b) capture the
+    license/source bytes and record their sha256 + a web-archive (Wayback) URL,
+    (c) confirm derivatives/translation are permitted, and (d) confirm the exact
+    required disclaimer wording verbatim. Only then is the entry promoted to
+    reviewStatus "confirmed".
+  notes: >-
+    This file was produced in the donated lane by an automated agent WITHOUT live
+    web access in this run. The snapshot.text values are good-faith reproductions
+    of well-known, publicly-documented standard terms (e.g. CC BY-NC-SA 3.0 IGO,
+    the WHO translation disclaimer, the Open Government Licence, 17 U.S.C. 105),
+    NOT bytes captured from the live pages. Treat them as a drafting aid to be
+    verified, never as the authoritative license. The original source edition is
+    always the binding edition.
+
+sources:
+  # =========================================================================
+  # 1. WHO — NOT CC-BY; CC BY-NC-SA 3.0 IGO + mandatory translation disclaimer
+  # =========================================================================
+  - id: "who-publications"
+    name: "World Health Organization (WHO) publications and web content"
+    publisher: "World Health Organization (WHO)"
+    status: "included"
+    reviewStatus: "provisional"
+    canonicalUrl: "https://www.who.int/about/policies/publishing/copyright"
+    documentScope: >-
+      WHO-authored publications, fact sheets and web content. The DEFAULT WHO
+      license for many publications is CC BY-NC-SA 3.0 IGO, but terms vary by
+      publication — the exact license MUST be confirmed on each specific WHO
+      document before translating it. Third-party material within a WHO document
+      (figures, photos, tables credited to others) is NOT covered and must be
+      cleared separately.
+    sourceVersion: "WHO copyright & permissions policy (undated web policy); per-document edition/year captured at translation time"
+    retrievalDate: null  # not live-fetched in this run; capture required before use
+    license:
+      name: "Creative Commons Attribution-NonCommercial-ShareAlike 3.0 IGO (CC BY-NC-SA 3.0 IGO) — default; verify per publication"
+      url: "https://creativecommons.org/licenses/by-nc-sa/3.0/igo/"
+      isCcBy: false   # IMPORTANT: WHO terms are NOT CC-BY (NonCommercial + ShareAlike apply)
+      derivativesAllowed: "yes"        # translations are permitted derivatives under CC BY-NC-SA 3.0 IGO
+      translationAllowed: "yes"        # subject to the mandatory translation disclaimer below
+      commercialUseAllowed: "no"       # NonCommercial: commercial reuse is NOT permitted by the default license
+      snapshot:
+        text: |
+          WHO content is generally made available under the Creative Commons
+          Attribution-NonCommercial-ShareAlike 3.0 IGO licence (CC BY-NC-SA 3.0 IGO).
+          This licence is NOT CC-BY: it adds NonCommercial and ShareAlike conditions.
+
+          Under this licence you may copy, redistribute and adapt the work
+          (including translating it) for NON-COMMERCIAL purposes, provided the work
+          is appropriately cited, any adaptation is distributed under the same or a
+          compatible licence (ShareAlike), and the required disclaimers are included.
+
+          For any TRANSLATION, WHO requires the following disclaimer to be added
+          (standard CC BY-NC-SA 3.0 IGO translation disclaimer):
+
+            "This translation was not created by the World Health Organization
+             (WHO). WHO is not responsible for the content or accuracy of this
+             translation. The original English edition shall be the binding and
+             authentic edition."
+
+          Suggested citation form (verify current wording per publication):
+            [Author/WHO]. [Title]. Geneva: World Health Organization; [year].
+            Licence: CC BY-NC-SA 3.0 IGO.
+
+          NOTE: This text is a reproduction of widely-published standard WHO/CC
+          terms, NOT a byte-for-byte capture of the live WHO page. Confirm the
+          exact licence and disclaimer wording on the specific WHO document and on
+          the current WHO permissions page before translating.
+        capturedFromLiveFetch: false
+        sha256: null
+        archiveUrl: null
+        integrityNote: "Reproduction of standard terms; live capture + sha256 + Wayback URL required to promote to reviewStatus 'confirmed'."
+    requiredAttribution: >-
+      Translated from: [Title]. Geneva: World Health Organization; [year].
+      Licence: CC BY-NC-SA 3.0 IGO. Source: [canonical document URL].
+    requiresDisclaimer: true
+    disclaimerText: >-
+      This translation was not created by the World Health Organization (WHO).
+      WHO is not responsible for the content or accuracy of this translation. The
+      original English edition shall be the binding and authentic edition.
+    outputLicense: "CC BY-NC-SA 3.0 IGO (ShareAlike, NonCommercial) + the WHO translation disclaimer above. NOT CC-BY; do NOT relicense more permissively."
+    exclusionReason: null
+    verifiedBy: "Claude Code drafting agent (automated desk review) — PROVISIONAL, awaiting qualified human license reviewer"
+    verifiedDate: "2026-06-28"
+    verificationMethod: >-
+      Desk review of publicly-documented standard WHO/Creative Commons terms from
+      agent knowledge. NO live fetch, snapshot capture, or hash performed (web
+      access unavailable in this run). Per-publication license and exact disclaimer
+      wording must be confirmed by a human reviewer before translation.
+    notes: >-
+      Per PLAN.md this is the marquee case: WHO is NOT CC-BY, NonCommercial +
+      ShareAlike apply, and the translation disclaimer is mandatory and verbatim.
+      Confirm exact license PER WHO publication (some carry different terms).
+
+  # =========================================================================
+  # 2. CDC — generally U.S. public domain (17 U.S.C. 105); watch third-party
+  # =========================================================================
+  - id: "cdc-public-domain"
+    name: "U.S. Centers for Disease Control and Prevention (CDC) content"
+    publisher: "U.S. Centers for Disease Control and Prevention (CDC) / U.S. Dept. of Health and Human Services"
+    status: "included"
+    reviewStatus: "provisional"
+    canonicalUrl: "https://www.cdc.gov/other/agencymaterials.html"
+    documentScope: >-
+      CDC-authored web content and fact sheets. Works prepared by U.S. federal
+      government employees as part of their official duties are generally in the
+      U.S. public domain (17 U.S.C. 105). HOWEVER, CDC pages frequently embed
+      third-party copyrighted material (photographs, figures, licensed content)
+      that is NOT public domain, and the CDC name/logo may not be used to imply
+      endorsement. Verify per document and strip/clear any third-party material.
+    sourceVersion: "CDC 'Use of CDC material' / agency materials notice (undated web policy); per-document date captured at translation time"
+    retrievalDate: null  # not live-fetched in this run; capture required before use
+    license:
+      name: "U.S. Government Work — public domain (17 U.S.C. 105) for CDC-authored portions"
+      url: "https://www.cdc.gov/other/agencymaterials.html"
+      isCcBy: false   # public domain, not a CC license
+      derivativesAllowed: "yes"          # for CDC-authored, public-domain portions
+      translationAllowed: "yes"          # for CDC-authored, public-domain portions
+      commercialUseAllowed: "yes"        # public domain imposes no use restriction (non-endorsement still applies)
+      snapshot:
+        text: |
+          Most material published by CDC is in the public domain and may be reused
+          without permission, because it is produced by the U.S. federal government
+          (17 U.S.C. 105). Attribution to CDC as the source is appreciated and is
+          best practice, but is not legally required for public-domain material.
+
+          Important limits:
+            - Some material on CDC pages is owned by third parties (e.g. photos,
+              figures, licensed text) and is NOT in the public domain; such items
+              are usually credited and require separate permission.
+            - The CDC / HHS names and logos are protected and may NOT be used in a
+              way that implies CDC endorsement of a product, service, or translation.
+
+          NOTE: This text is a reproduction of the well-known CDC content-use /
+          U.S. public-domain position, NOT a byte-for-byte capture of the live CDC
+          page. Confirm per document that the specific content is CDC-authored and
+          contains no uncleared third-party material before translating.
+        capturedFromLiveFetch: false
+        sha256: null
+        archiveUrl: null
+        integrityNote: "Reproduction of standard terms; live capture + sha256 + Wayback URL required to promote to reviewStatus 'confirmed'."
+    requiredAttribution: >-
+      Source: U.S. Centers for Disease Control and Prevention (CDC), [Title],
+      [canonical document URL] (accessed [date]). CDC material is generally in the
+      U.S. public domain; attribution is provided as good practice.
+    requiresDisclaimer: true   # non-endorsement disclaimer recommended even though not legally mandated
+    disclaimerText: >-
+      This translation/adaptation was not produced by, and is not endorsed by, the
+      U.S. Centers for Disease Control and Prevention (CDC). The original CDC
+      English-language material is the authoritative version.
+    outputLicense: "CDC-authored portions are public domain; the translation may be released openly (e.g. CC BY 4.0 or public-domain dedication). Any embedded third-party material must be excluded or separately cleared."
+    exclusionReason: null
+    verifiedBy: "Claude Code drafting agent (automated desk review) — PROVISIONAL, awaiting qualified human license reviewer"
+    verifiedDate: "2026-06-28"
+    verificationMethod: >-
+      Desk review of the publicly-documented CDC content-use / U.S. public-domain
+      position from agent knowledge. NO live fetch, snapshot capture, or hash
+      performed (web access unavailable in this run). Per-document third-party
+      content check required before translation.
+    notes: >-
+      Satisfies the 'one MoH or CDC source' criterion. The main risk is embedded
+      third-party material, not the base license; the per-document check must catch it.
+
+  # =========================================================================
+  # 3. UK public-health bodies (DHSC / UKHSA via GOV.UK) — Open Government Licence
+  #    (Ministry-of-Health-equivalent national source with clear permissive terms)
+  # =========================================================================
+  - id: "uk-ogl-gov-health"
+    name: "UK Government public-health guidance (Department of Health and Social Care / UK Health Security Agency, via GOV.UK)"
+    publisher: "UK Department of Health and Social Care (DHSC) / UK Health Security Agency (UKHSA) — Crown copyright"
+    status: "included"
+    reviewStatus: "provisional"
+    canonicalUrl: "https://www.gov.uk/government/organisations/uk-health-security-agency"
+    documentScope: >-
+      Public-health guidance published on GOV.UK by UK Crown bodies (DHSC, UKHSA)
+      that is offered under the Open Government Licence v3.0. Excludes the Royal
+      Arms, departmental/agency logos, personal data, and any third-party content
+      separately marked as not covered by the OGL. Confirm each page actually
+      carries the OGL (most GOV.UK content does, but some is excepted).
+    sourceVersion: "Open Government Licence v3.0; per-document publication/update date captured at translation time"
+    retrievalDate: null  # not live-fetched in this run; capture required before use
+    license:
+      name: "Open Government Licence v3.0 (OGL v3.0)"
+      url: "https://www.nationalarchives.gov.uk/doc/open-government-licence/version/3/"
+      isCcBy: false   # OGL is CC-BY-compatible/interoperable but is its own licence, not CC BY itself
+      derivativesAllowed: "yes"          # OGL permits adapting the information
+      translationAllowed: "yes"          # translation is an adaptation permitted by OGL
+      commercialUseAllowed: "yes"        # OGL permits commercial exploitation
+      snapshot:
+        text: |
+          Open Government Licence v3.0 — you are free to: copy, publish, distribute
+          and transmit the Information; adapt the Information; and exploit it
+          commercially and non-commercially, for example by combining it with other
+          Information, or by including it in your own product or application.
+
+          You must (where you do any of the above) acknowledge the source of the
+          Information in your product or application by including or linking to any
+          attribution statement specified by the Information Provider(s) and, where
+          possible, provide a link to this licence. A suggested form is:
+            "Contains public sector information licensed under the Open Government
+             Licence v3.0."
+
+          The licence does NOT cover: personal data; the Royal Arms and
+          departmental or agency logos/crests; third-party rights the Information
+          Provider is not authorised to license; and certain other excepted items.
+          The OGL is interoperable with CC BY 4.0.
+
+          NOTE: This text is a reproduction/summary of the standard OGL v3.0 terms,
+          NOT a byte-for-byte capture of the live licence page. Confirm the specific
+          GOV.UK page is offered under OGL before translating.
+        capturedFromLiveFetch: false
+        sha256: null
+        archiveUrl: null
+        integrityNote: "Reproduction of standard terms; live capture + sha256 + Wayback URL required to promote to reviewStatus 'confirmed'."
+    requiredAttribution: >-
+      Contains public sector information licensed under the Open Government Licence
+      v3.0. Source: [Title], [DHSC/UKHSA], [canonical document URL] (accessed [date]).
+    requiresDisclaimer: false   # OGL does not mandate a disclaimer; a non-endorsement note is recommended
+    disclaimerText: >-
+      This translation was not produced or endorsed by the UK Department of Health
+      and Social Care or the UK Health Security Agency. The original English-language
+      publication is the authoritative version.
+    outputLicense: "OGL v3.0 (or the interoperable CC BY 4.0), with the OGL attribution statement. Translation must keep attribution and must not use the excepted logos/Royal Arms."
+    exclusionReason: null
+    verifiedBy: "Claude Code drafting agent (automated desk review) — PROVISIONAL, awaiting qualified human license reviewer"
+    verifiedDate: "2026-06-28"
+    verificationMethod: >-
+      Desk review of the standard Open Government Licence v3.0 terms from agent
+      knowledge. NO live fetch, snapshot capture, or hash performed (web access
+      unavailable in this run). Confirm OGL applies to each specific GOV.UK page
+      before translation.
+    notes: >-
+      Included as a national-health-authority (MoH-equivalent) source with clear,
+      translation-permissive terms, complementing WHO (restrictive) and CDC
+      (public domain). OGL is CC-BY-compatible, unlike WHO terms.
+
+  # =========================================================================
+  # 4. MSF — EXCLUDED: no general reuse/translation licence identified
+  # =========================================================================
+  - id: "msf-materials"
+    name: "Médecins Sans Frontières (MSF) / Doctors Without Borders materials"
+    publisher: "Médecins Sans Frontières (MSF)"
+    status: "excluded"
+    reviewStatus: "provisional"
+    canonicalUrl: "https://www.msf.org/terms-use"
+    documentScope: >-
+      MSF field/medical guidance and public materials. No blanket open-reuse or
+      translation licence has been identified; MSF web content is generally
+      presented as all-rights-reserved with restrictive terms of use.
+    sourceVersion: "MSF terms of use (undated web policy)"
+    retrievalDate: null  # not live-fetched in this run
+    license:
+      name: "All rights reserved / no general reuse licence identified (verify)"
+      url: "https://www.msf.org/terms-use"
+      isCcBy: false
+      derivativesAllowed: "unknown"
+      translationAllowed: "unknown"
+      commercialUseAllowed: "no"
+      snapshot:
+        text: |
+          No general open-content or translation licence was identified for MSF
+          materials. MSF web content is typically all-rights-reserved and its terms
+          of use restrict reproduction and adaptation without specific permission.
+
+          Because derivative/translation permission is NOT established, MSF sources
+          are EXCLUDED from translation until specific written permission is obtained
+          from MSF and recorded on this allow-list (then this entry can be revised to
+          status "included" with the exact granted terms).
+
+          NOTE: Reproduction of the general position, NOT a live capture. Verify
+          MSF's current terms; do not translate MSF content on the basis of this note.
+        capturedFromLiveFetch: false
+        sha256: null
+        archiveUrl: null
+        integrityNote: "Excluded; no capture required unless/until written permission is obtained and the entry is revised."
+    requiredAttribution: "N/A — excluded; do not translate without specific written permission and recorded terms."
+    requiresDisclaimer: false
+    disclaimerText: null
+    outputLicense: "N/A — excluded."
+    exclusionReason: >-
+      No general reuse/translation licence identified; MSF materials are generally
+      all-rights-reserved. Derivative/translation permission is not established, so
+      per PLAN.md ('if unclear, do not translate') this source is excluded until
+      specific written permission is obtained from MSF and recorded here.
+    verifiedBy: "Claude Code drafting agent (automated desk review) — PROVISIONAL, awaiting qualified human license reviewer"
+    verifiedDate: "2026-06-28"
+    verificationMethod: >-
+      Desk review from agent knowledge that MSF lacks a blanket open-reuse licence.
+      NO live fetch performed. A human reviewer should confirm current MSF terms and
+      pursue written permission if MSF content is genuinely needed.
+    notes: >-
+      Demonstrates the exclusion discipline required by the acceptance criteria:
+      sources with unclear or incompatible terms are excluded with a reason rather
+      than translated.
+
+  # =========================================================================
+  # 5. Generic national Ministry of Health (unverified) — EXCLUDED template
+  # =========================================================================
+  - id: "national-moh-unverified"
+    name: "National Ministry of Health source (unverified — template/placeholder)"
+    publisher: "(varies by country — to be filled in per actual MoH source)"
+    status: "excluded"
+    reviewStatus: "provisional"
+    canonicalUrl: "https://example.gov/ministry-of-health"
+    documentScope: >-
+      Placeholder showing how a national MoH source MUST be handled before use.
+      National MoH terms vary widely (Crown copyright, government open licences,
+      or all-rights-reserved) and must each be verified individually. This entry
+      carries no real source and exists to enforce that discipline; replace it with
+      a concrete, verified MoH entry when one is adopted.
+    sourceVersion: null
+    retrievalDate: null
+    license:
+      name: "Unverified — terms vary by country and must be checked per source"
+      url: null
+      isCcBy: false
+      derivativesAllowed: "unknown"
+      translationAllowed: "unknown"
+      commercialUseAllowed: "unknown"
+      snapshot:
+        text: |
+          Template / placeholder. National Ministry of Health licensing varies and
+          cannot be assumed. Do NOT translate any MoH source under this entry. To
+          adopt a real MoH source: create a new entry, live-fetch and snapshot its
+          licence, confirm derivative/translation permission and required
+          attribution/disclaimer, set status "included" and reviewStatus
+          "confirmed" via a qualified human license reviewer.
+        capturedFromLiveFetch: false
+        sha256: null
+        archiveUrl: null
+        integrityNote: "Template entry; no source bytes to capture."
+    requiredAttribution: "N/A — placeholder; no source attached."
+    requiresDisclaimer: false
+    disclaimerText: null
+    outputLicense: "N/A — excluded placeholder."
+    exclusionReason: >-
+      No concrete MoH source verified yet. MoH terms vary and must not be assumed.
+      Placeholder to enforce per-source MoH verification; not usable for translation.
+    verifiedBy: "Claude Code drafting agent (automated desk review) — PROVISIONAL"
+    verifiedDate: "2026-06-28"
+    verificationMethod: "Placeholder entry; no live source. Replace with a verified MoH source before any MoH translation."
+    notes: >-
+      Kept intentionally as an excluded template so the allow-list documents the
+      required MoH handling even before a specific national MoH partner is secured.
