@@ -1,0 +1,115 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://elyos/vital-info-translations/sources/allow-list.schema.json",
+  "title": "vital-info-translations source allow-list",
+  "description": "Structured, per-source license allow-list. Only sources with status 'included' AND reviewStatus 'confirmed' may be translated. This schema is used by the structural CI check (tooling-001) and underpins the per-deliverable license gate (license-002).",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "generatedDate", "fileLicense", "verificationPolicy", "sources"],
+  "properties": {
+    "schemaVersion": { "type": "string" },
+    "generatedDate": { "type": "string", "format": "date" },
+    "fileLicense": { "type": "string", "description": "License of this metadata file itself (project tooling/data = MIT). Does NOT relicense any source content." },
+    "verificationPolicy": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["humanConfirmationRequired", "blockingPrerequisite", "notes"],
+      "properties": {
+        "humanConfirmationRequired": { "type": "boolean" },
+        "blockingPrerequisite": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "sources": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "$ref": "#/definitions/source" }
+    }
+  },
+  "definitions": {
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "id", "name", "publisher", "status", "reviewStatus", "canonicalUrl",
+        "documentScope", "sourceVersion", "retrievalDate", "license",
+        "requiredAttribution", "requiresDisclaimer", "disclaimerText",
+        "outputLicense", "exclusionReason", "verifiedBy", "verifiedDate",
+        "verificationMethod", "notes"
+      ],
+      "properties": {
+        "id": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+        "name": { "type": "string" },
+        "publisher": { "type": "string" },
+        "status": { "type": "string", "enum": ["included", "excluded"] },
+        "reviewStatus": {
+          "type": "string",
+          "enum": ["provisional", "confirmed"],
+          "description": "'confirmed' requires sign-off by a qualified human license/compliance reviewer plus a captured license snapshot (sha256 + archiveUrl). Until then, 'provisional' and NOT clear for translation."
+        },
+        "canonicalUrl": { "type": "string", "format": "uri" },
+        "documentScope": { "type": "string" },
+        "sourceVersion": { "type": ["string", "null"] },
+        "retrievalDate": {
+          "type": ["string", "null"],
+          "description": "Date the source/license page was actually live-fetched. null = not yet retrieved (snapshot capture pending)."
+        },
+        "license": { "$ref": "#/definitions/license" },
+        "requiredAttribution": { "type": "string" },
+        "requiresDisclaimer": { "type": "boolean" },
+        "disclaimerText": { "type": ["string", "null"] },
+        "outputLicense": {
+          "type": "string",
+          "description": "License a derived translation MUST carry (source-compatible). Not the license of this file."
+        },
+        "exclusionReason": { "type": ["string", "null"] },
+        "verifiedBy": { "type": "string" },
+        "verifiedDate": { "type": "string", "format": "date" },
+        "verificationMethod": { "type": "string" },
+        "notes": { "type": "string" }
+      }
+    },
+    "license": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": [
+        "name", "url", "isCcBy", "derivativesAllowed", "translationAllowed",
+        "commercialUseAllowed", "snapshot"
+      ],
+      "properties": {
+        "name": { "type": "string" },
+        "url": { "type": ["string", "null"], "format": "uri" },
+        "isCcBy": {
+          "type": "boolean",
+          "description": "True only if the source is plain CC BY. WHO content is NOT CC BY (it is CC BY-NC-SA 3.0 IGO) -> must be false for WHO."
+        },
+        "derivativesAllowed": { "type": "string", "enum": ["yes", "no", "conditional", "unknown"] },
+        "translationAllowed": { "type": "string", "enum": ["yes", "no", "conditional", "unknown"] },
+        "commercialUseAllowed": { "type": "string", "enum": ["yes", "no", "conditional", "unknown"] },
+        "snapshot": { "$ref": "#/definitions/snapshot" }
+      }
+    },
+    "snapshot": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["text", "capturedFromLiveFetch", "sha256", "archiveUrl", "integrityNote"],
+      "properties": {
+        "text": {
+          "type": "string",
+          "description": "Human-readable reproduction of the relevant license / reuse terms."
+        },
+        "capturedFromLiveFetch": {
+          "type": "boolean",
+          "description": "True only if 'text' was captured from a live retrieval of canonicalUrl/license.url in this run."
+        },
+        "sha256": {
+          "type": ["string", "null"],
+          "pattern": "^[a-f0-9]{64}$",
+          "description": "SHA-256 of the captured license/source bytes. null until a real capture is performed."
+        },
+        "archiveUrl": { "type": ["string", "null"], "format": "uri" },
+        "integrityNote": { "type": "string" }
+      }
+    }
+  }
+}
